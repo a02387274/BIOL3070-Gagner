@@ -31,16 +31,15 @@ West Nile Virus (WNV) is maintained in transmission cycles between avian
 species and mosquitos with certain bird species acting as key amplifying
 hosts over others. Mosquito blood meal hosts were investigated by way of
 traps collecting mosquito samples in various locations across Salt Lake
-City. Sites were compared that were WNV-positive and WNV-negative. Blood
-meal DNA was identified using PCR and analyzed via barplots and by
-generalized linear model (GLM). House Finches (Haemorhous mexicanus)
-were among the most common hosts and their presence was strongly
-correlated with WNV-positive sites (p \< 0.05). GLM further demonstrated
-a positive correlation between House Finch blood meals and local WNV
-positive rates (p \< 0.001). These findings support the hypothesis that
-House Finches disproportionately contribute to WNV amplification.
-Understanding host-specific blood feeding patterns by mosquitos can
-improve surveillance and management of WNV transmission risk.
+City. Sites were compared that were WNV-positive and WNV-negative. House
+Finches (Haemorhous mexicanus) were among the most common hosts and
+their presence was strongly correlated with WNV-positive sites. GLM
+further demonstrated a positive correlation between House Finch blood
+meals and local WNV positive rates. These findings support the
+hypothesis that House Finches disproportionately contribute to WNV
+amplification. Understanding host-specific blood feeding patterns by
+mosquitos can improve surveillance and management of WNV transmission
+risk.
 
 # BACKGROUND
 
@@ -56,17 +55,10 @@ of mosquito bites transferring WNV from reservoir host species . Through
 research, birds have been determined to be a rather large contributor to
 the maintenance of WNV and its spread. House Finches (Haemorhous
 mexicanus) are notable host reservoirs of the virus given their
-prolonged and high-titer of the virus (Komar et al., 2003).
-
-To connect real-world-transmission data to laboratory findings,
-molecular tools are used.Polymerase chain reaction (PCR) is a method of
-DNA amplification used to determine what host species mosquitos have
-blood fed on by extracting the blood from the mosquito and sequencing
-the amplified DNA fragments. Primers are used in the amplification to
-make many copies of the DNA strands for better reading (Polymerase Chain
-Reaction (PCR), n.d.). Identifying the host correctly allows for
-connections to be made to determine feeding patterns and infection
-outcomes.
+prolonged and high-titer of the virus (Komar et al., 2003). With the
+data sample, prominent species in WNV transmission and living reservoir
+information will be used to determine what bird species are acting as
+the largest amplifying reservoir host species.
 
 ``` r
 # Manually transcribe duration (mean, lo, hi) from the last table column
@@ -134,7 +126,9 @@ areas where other species are fed on.
 
 # METHODS
 
-<!--Fill in here, including overview of procedure and methods used for this project.-->
+<!--Fill in here, including overview of procedure and methods used for this project.
+&#10;To connect real-world-transmission data to laboratory findings, molecular tools are used. Polymerase chain reaction (PCR) is a method of DNA amplification used to determine what host species mosquitos have blood fed on by extracting the blood from the mosquito and sequencing the amplified DNA fragments. Primers are used in the amplification to make many copies of the DNA strands for better reading (Polymerase Chain Reaction (PCR), n.d.). Identifying the host correctly allows for connections to be made to determine feeding patterns and infection outcomes.
+&#10;-->
 
 Mosquitoes were trapped from several locations in Salt Lake City.
 Bloodmeal DNA was taken from flood-fed mosquitoes and analyzed using PCR
