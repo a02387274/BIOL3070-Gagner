@@ -1,0 +1,59 @@
+---
+title: "Warm-up Mini-Report Mosquitoes"
+author: "Mason Gagner"
+date: "2025-09-16"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+## ABSTRACT
+## BACKGROUND
+
+Fill in some text here that provides background info on the WNV system, the blood meal DNA extractions, PCR, sequencing, etc.
+
+```{r viremia}
+
+```
+NOTE: Examples of data you can plot for the background info at 
+
+# MAJOR QUESTION
+
+Fill in here the question we want to answer. 
+
+# METHODS
+
+Fill in here, including overview of procedure and methods used for this project
+
+## Fill in name of first analysis
+```{r analysis1}
+#put code here
+```
+## Fill in name of second analysis/plot
+```{r plot}
+#put code here
+```
+
+# DISCUSSION
+
+
+
+
+
+
+
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
