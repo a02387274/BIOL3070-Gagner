@@ -1,0 +1,143 @@
+Mortality Rates Compared Between Vaccinated and Unvaccinated Infants
+================
+Mason Gagner
+2025-10-30
+
+- [ABSTRACT](#abstract)
+- [BACKGROUND](#background)
+- [STUDY QUESTION and HYPOTHESIS](#study-question-and-hypothesis)
+  - [Questions](#questions)
+  - [Hypothesis](#hypothesis)
+  - [Prediction](#prediction)
+- [METHODS](#methods)
+  - [First Analysis](#first-analysis)
+    - [Comparing Infant Mortality
+      Rates](#comparing-infant-mortality-rates)
+  - [Second Analysis](#second-analysis)
+    - [Second Analysis](#second-analysis-1)
+- [DISCUSSION](#discussion)
+  - [Interpretation - First Analysis](#interpretation---first-analysis)
+  - [Interpretation - Second
+    Analysis](#interpretation---second-analysis)
+- [CONCLUSION](#conclusion)
+- [REFERENCES](#references)
+
+# ABSTRACT
+
+<!--Fill in abstract at the end after we have finished the methods, results, discussion, conclusions and know what our data "says".-->
+
+# BACKGROUND
+
+<!--Fill in some text here that provides background info on the WNV system, the blood meal DNA extractions, PCR, sequencing, etc. and the foundation for our question/hypothesis.
+&#10;NOTE: Examples of data you can plot for the background info at https://github.com/saarman/BIOL3070/ -->
+
+# STUDY QUESTION and HYPOTHESIS
+
+## Questions
+
+<!--Fill in here, the question we want to answer... e.g. What bird species is acting as WNV amplifying host in Salt Lake City?-->
+
+Between vaccinated and non-vaccinated groups, who shows a more
+significant decline in child mortality?
+
+## Hypothesis
+
+<!--Fill in hypothesis... e.g. House finches are acting as important amplifying hosts of WNV in Salt Lake City.-->
+
+Infants that are vaccinated will show a more significant decline in
+mortality rates compared to those who are unvaccinated.
+
+## Prediction
+
+<!--Fill in prediction... e.g. If house finches are acting as important amplifying hosts, we predict that trapping locations where mosquitoes feed on house finches will also have higher rates of confirmed WNV in tested mosquito pools.-->
+
+# METHODS
+
+<!--Fill in here, including overview of procedure and methods used for this project.
+&#10;To connect real-world-transmission data to laboratory findings, molecular tools are used. Polymerase chain reaction (PCR) is a method of DNA amplification used to determine what host species mosquitos have blood fed on by extracting the blood from the mosquito and sequencing the amplified DNA fragments. Primers are used in the amplification to make many copies of the DNA strands for better reading (Polymerase Chain Reaction (PCR), n.d.). Identifying the host correctly allows for connections to be made to determine feeding patterns and infection outcomes.
+&#10;-->
+
+## First Analysis
+
+### Comparing Infant Mortality Rates
+
+Line Graph:
+
+``` r
+library(ggplot2)
+library(tidyr)
+
+data <- read.csv("Globalinfantmortalityrate.csv")
+
+# Change the formatting for graph type
+data_long <- pivot_longer(data,
+                          cols = c("Vaccinated.Mortality.Rate", "Unvaccinated.Mortality.Rate"),
+                          names_to = "Group",
+                          values_to = "MortalityRate")
+
+# Creating the plot
+ggplot(data_long, aes(x = Year, y = MortalityRate, color = Group)) +
+  geom_line(size = 1.2) +
+  geom_point(size = 2) +
+  
+  # Solid Axis Lines and line spacing
+  geom_hline(yintercept = 0, color = "black", size = 0.6) +
+  geom_vline(xintercept = min(data_long$Year), color = "black", size = 0.6) +
+  
+  scale_y_continuous(
+    limits = c(0, 11),
+    breaks = seq(0, 11, by = 0.5),   
+    minor_breaks = NULL              
+  ) +
+  scale_x_continuous(
+    breaks = seq(min(data_long$Year), max(data_long$Year), by = 10),  
+    minor_breaks = data_long$Year                                     
+  ) +
+  
+  # Line colors for the faded/more solid colored lines
+  theme_minimal(base_size = 12) +
+  theme(
+    panel.grid.minor = element_line(color = "gray90", size = 0.2),
+    panel.grid.major = element_line(color = "gray70", size = 0.4),   
+    panel.border = element_blank(),                                  
+    axis.line = element_blank()                                      
+  ) +
+  
+  labs(
+    title = "Global Infant Mortality Rate (Vaccinated vs Unvaccinated, 1974–2024)",
+    x = "Year",
+    y = "Mortality Rate (%)",
+    color = "Group"
+  )
+```
+
+<img src="Final_RMarkdown_Mason_Gagner_files/figure-gfm/linear.plot-1.png" style="display: block; margin: auto auto auto 0;" />
+
+## Second Analysis
+
+### Second Analysis
+
+# DISCUSSION
+
+## Interpretation - First Analysis
+
+## Interpretation - Second Analysis
+
+# CONCLUSION
+
+# REFERENCES
+
+OpenAI. (2025). ChatGPT (Oct 2025 version) \[Large language model\].
+OpenAI. <https://chat.openai.com/> (Used for general structuring and
+grammatical checking)
+
+Shattock et al. (2024). Contribution of vaccination to improved survival
+and health: modelling 50 years of the Expanded Programme on
+Immunization. – processed by Our World in Data. “Global infant mortality
+rate with and without vaccines” \[dataset\]. Shattock et al. (2024).
+Contribution of vaccination to improved survival and health: modelling
+50 years of the Expanded Programme on Immunization.,
+“infant_mortality_vaccination_shattock” \[original data\]. Retrieved
+October 28, 2025 from
+<https://archive.ourworldindata.org/20250909-093708/grapher/infant-mortality-vaccines.html>
+(archived on September 9, 2025).

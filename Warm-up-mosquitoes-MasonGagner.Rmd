@@ -232,7 +232,7 @@ Cleveland Clinic. (2025, September 12). What is West Nile virus? Cleveland Clini
 
 Komar, N., Langevin, S., Hinten, S., Nemeth, N., Edwards, E., Hettler, D., Davis, B., Bowen, R., & Bunning, M. (2003). Experimental infection of North American birds with the New York 1999 strain of West Nile virus. Emerging Infectious Diseases, 9(3), 311–322. https://doi.org/10.3201/eid0903.020628
 
-National Human Genome Research Institute. (n.d.). Polymerase chain reaction (PCR). Genome.gov. https://www.genome.gov/genetics-glossary/Polymerase-Chain-Reaction-PCR
+<!--National Human Genome Research Institute. (n.d.). Polymerase chain reaction (PCR). Genome.gov. https://www.genome.gov/genetics-glossary/Polymerase-Chain-Reaction-PCR-->
 
 OpenAI. (2025). ChatGPT (Sep 2025 version) [Large language model]. OpenAI. https://chat.openai.com/ (Used for general structuring and grammatical checking)
 

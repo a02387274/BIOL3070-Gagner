@@ -1,7 +1,7 @@
 Warm-up mini-Report: Mosquito Blood Hosts in Salt Lake City, Utah
 ================
 Mason Gagner
-2025-10-09
+2025-10-14
 
 - [ABSTRACT](#abstract)
 - [BACKGROUND](#background)
@@ -379,9 +379,7 @@ of North American birds with the New York 1999 strain of West Nile
 virus. Emerging Infectious Diseases, 9(3), 311–322.
 <https://doi.org/10.3201/eid0903.020628>
 
-National Human Genome Research Institute. (n.d.). Polymerase chain
-reaction (PCR). Genome.gov.
-<https://www.genome.gov/genetics-glossary/Polymerase-Chain-Reaction-PCR>
+<!--National Human Genome Research Institute. (n.d.). Polymerase chain reaction (PCR). Genome.gov. https://www.genome.gov/genetics-glossary/Polymerase-Chain-Reaction-PCR-->
 
 OpenAI. (2025). ChatGPT (Sep 2025 version) \[Large language model\].
 OpenAI. <https://chat.openai.com/> (Used for general structuring and
