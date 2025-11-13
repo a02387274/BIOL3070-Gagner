@@ -205,19 +205,65 @@ summary(model)
 
 ``` r
 library(ggplot2)
+library(dplyr)
+```
 
-ggplot(data_long, aes(x = Year, y = Mortality, color = Group)) +
-  geom_point() +
+    ## 
+    ## Attaching package: 'dplyr'
+
+    ## The following objects are masked from 'package:stats':
+    ## 
+    ##     filter, lag
+
+    ## The following objects are masked from 'package:base':
+    ## 
+    ##     intersect, setdiff, setequal, union
+
+``` r
+# Calculate slope and intercept for each group
+equations <- data_long %>%
+  group_by(Group) %>%
+  do(model = lm(Mortality ~ Year, data = .)) %>%
+  summarize(
+    Group,
+    Intercept = coef(model)[1],
+    Slope = coef(model)[2]
+  )
+
+# Clean up group names and make equation labels
+equations <- equations %>%
+  mutate(
+    Group = recode(Group,
+                   "Vaccinated.Mortality.Rate" = "Vaccinated",
+                   "Unvaccinated.Mortality.Rate" = "Unvaccinated"),
+    label = paste0(Group, " (y = ",
+                   round(Slope, 3), "x + ",
+                   round(Intercept, 2), ")")
+  )
+
+# Merge labels back into main dataset
+data_long_labeled <- data_long %>%
+  left_join(equations, by = "Group")
+
+# Plot design
+ggplot(data_long_labeled, aes(x = Year, y = Mortality, color = label)) +
+  geom_point(size = 2) +
   geom_smooth(method = "lm", se = FALSE, lwd = 1.2) +
-  theme_minimal() +
-  labs(title = "Comparison of Mortality Rate Trends Over Time",
-       y = "Mortality Rate",
-       x = "Year")
+  theme_minimal(base_size = 12) +
+  theme(
+    plot.title = element_text(hjust = 0.5)  # centers the title
+  ) +
+  labs(
+    title = "Comparison of Mortality Rate Trends Over Time",
+    y = "Mortality Rate (%)",
+    x = "Year",
+    color = "Group Regression Equation"
+  )
 ```
 
     ## `geom_smooth()` using formula = 'y ~ x'
 
-![](Final_RMarkdown_Mason_Gagner_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
+![](Final_RMarkdown_Mason_Gagner_files/figure-gfm/mortality_plot-1.png)<!-- -->
 
 # DISCUSSION
 
