@@ -20,6 +20,7 @@ knitr::opts_chunk$set(echo = TRUE)
 <!--Fill in some text here that provides background info on the WNV system, the blood meal DNA extractions, PCR, sequencing, etc. and the foundation for our question/hypothesis.
 
 NOTE: Examples of data you can plot for the background info at https://github.com/saarman/BIOL3070/ -->
+Infant mortality stands as a key indicator of a nation’s overall health and development. Many factors can contribute to the health and life expectancy of people, such as hygiene driven by cultural and technological norms and advancement. Introduction of global vaccination initiatives such as the Expanded Programme on Immunization (EPI) in 1974 has been linked to reductions in preventable childhood deaths (World Health Organization). While there are many studies to confirm the efficacy of vaccines, long-term impact is determined by comparing historical trends of mortality rates.
   
 ```{r}
 ```
@@ -27,9 +28,9 @@ NOTE: Examples of data you can plot for the background info at https://github.co
 
 # STUDY QUESTION and HYPOTHESIS
 
-## Questions  
+## Question  
 <!--Fill in here, the question we want to answer... e.g. What bird species is acting as WNV amplifying host in Salt Lake City?-->
-Between vaccinated and non-vaccinated groups, who shows a more significant decline in child mortality?
+Between vaccinated and non-vaccinated groups, who shows a more significant decline in child mortality rates?
 
 ## Hypothesis 
 <!--Fill in hypothesis... e.g. House finches are acting as important amplifying hosts of WNV in Salt Lake City.-->
@@ -37,21 +38,17 @@ Infants that are vaccinated will show a more significant decline in mortality ra
 
 ## Prediction
 <!--Fill in prediction... e.g. If house finches are acting as important amplifying hosts, we predict that trapping locations where mosquitoes feed on house finches will also have higher rates of confirmed WNV in tested mosquito pools.-->
-
+If vaccines are effective at reducing mortality rates in infants, we will see a more significant decline in the mortality for those who are vaccinated compared to not.
 
 # METHODS
 
 <!--Fill in here, including overview of procedure and methods used for this project.
-
-To connect real-world-transmission data to laboratory findings, molecular tools are used. Polymerase chain reaction (PCR) is a method of DNA amplification used to determine what host species mosquitos have blood fed on by extracting the blood from the mosquito and sequencing the amplified DNA fragments. Primers are used in the amplification to make many copies of the DNA strands for better reading (Polymerase Chain Reaction (PCR), n.d.). Identifying the host correctly allows for connections to be made to determine feeding patterns and infection outcomes.
-
 -->
 
 ## First Analysis
 
-### Comparing Infant Mortality Rates
+### Comparing Infant Mortality Rates: Line Graph
 
-Line Graph:
 ```{r linear.plot,fig.align='left',fig.width=10,fig.height=7, warning=FALSE}
 library(ggplot2)
 library(tidyr)
@@ -102,17 +99,51 @@ ggplot(data_long, aes(x = Year, y = MortalityRate, color = Group)) +
 
 ## Second Analysis
 
-### Second Analysis
-
-
+### Linear Regression of Vaccinated compared to Unvaccinated
 
 ```{r}
+data <- read.csv("Globalinfantmortalityrate.csv")
 
+# Slope for Vaccinated
+model_vax <- lm(Vaccinated.Mortality.Rate ~ Year, data = data)
+
+# Slope for Unvaccinated
+model_unvax <- lm(Unvaccinated.Mortality.Rate ~ Year, data = data)
+
+summary(model_vax)$coefficients
+summary(model_unvax)$coefficients
+
+slope_vax <- coef(model_vax)[2]
+slope_unvax <- coef(model_unvax)[2]
+
+cat("Vaccinated slope:", slope_vax, "\n")
+cat("Unvaccinated slope:", slope_unvax, "\n")
+
+#If the p-value for that term is < 0.05, the slopes are significantly different.
+#If the p-value is > 0.05, the slopes are not significantly different.
+
+# Reshape the data
+data_long <- data.frame(
+  Year = rep(data$Year, 2),
+  Mortality = c(data$Vaccinated.Mortality.Rate, data$Unvaccinated.Mortality.Rate),
+  Group = rep(c("Vaccinated", "Unvaccinated"), each = nrow(data))
+)
+model <- lm(Mortality ~ Year * Group, data = data_long)
+summary(model)
+
+library(ggplot2)
+
+ggplot(data_long, aes(x = Year, y = Mortality, color = Group)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE, lwd = 1.2) +
+  theme_minimal() +
+  labs(title = "Comparison of Mortality Rate Trends Over Time",
+       y = "Mortality Rate",
+       x = "Year")
 ```
 
 
 # DISCUSSION
-
 
 
 ## Interpretation - First Analysis
@@ -129,3 +160,5 @@ ggplot(data_long, aes(x = Year, y = MortalityRate, color = Group)) +
 OpenAI. (2025). ChatGPT (Oct 2025 version) [Large language model]. OpenAI. https://chat.openai.com/ (Used for general structuring and grammatical checking)
 
 Shattock et al. (2024). Contribution of vaccination to improved survival and health: modelling 50 years of the Expanded Programme on Immunization. – processed by Our World in Data. “Global infant mortality rate with and without vaccines” [dataset]. Shattock et al. (2024). Contribution of vaccination to improved survival and health: modelling 50 years of the Expanded Programme on Immunization., “infant_mortality_vaccination_shattock” [original data]. Retrieved October 28, 2025 from https://archive.ourworldindata.org/20250909-093708/grapher/infant-mortality-vaccines.html (archived on September 9, 2025).
+
+World Health Organization. (n.d.). Essential Programme on immunization. World Health Organization. https://www.who.int/teams/immunization-vaccines-and-biologicals/essential-programme-on-immunization 

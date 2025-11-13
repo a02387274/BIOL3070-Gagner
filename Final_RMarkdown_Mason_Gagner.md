@@ -1,20 +1,21 @@
 Mortality Rates Compared Between Vaccinated and Unvaccinated Infants
 ================
 Mason Gagner
-2025-10-30
+2025-11-13
 
 - [ABSTRACT](#abstract)
 - [BACKGROUND](#background)
 - [STUDY QUESTION and HYPOTHESIS](#study-question-and-hypothesis)
-  - [Questions](#questions)
+  - [Question](#question)
   - [Hypothesis](#hypothesis)
   - [Prediction](#prediction)
 - [METHODS](#methods)
   - [First Analysis](#first-analysis)
-    - [Comparing Infant Mortality
-      Rates](#comparing-infant-mortality-rates)
+    - [Comparing Infant Mortality Rates: Line
+      Graph](#comparing-infant-mortality-rates-line-graph)
   - [Second Analysis](#second-analysis)
-    - [Second Analysis](#second-analysis-1)
+    - [Linear Regression of Vaccinated compared to
+      Unvaccinated](#linear-regression-of-vaccinated-compared-to-unvaccinated)
 - [DISCUSSION](#discussion)
   - [Interpretation - First Analysis](#interpretation---first-analysis)
   - [Interpretation - Second
@@ -31,14 +32,24 @@ Mason Gagner
 <!--Fill in some text here that provides background info on the WNV system, the blood meal DNA extractions, PCR, sequencing, etc. and the foundation for our question/hypothesis.
 &#10;NOTE: Examples of data you can plot for the background info at https://github.com/saarman/BIOL3070/ -->
 
+Infant mortality stands as a key indicator of a nation’s overall health
+and development. Many factors can contribute to the health and life
+expectancy of people, such as hygiene driven by cultural and
+technological norms and advancement. Introduction of global vaccination
+initiatives such as the Expanded Programme on Immunization (EPI) in 1974
+has been linked to reductions in preventable childhood deaths (World
+Health Organization). While there are many studies to confirm the
+efficacy of vaccines, long-term impact is determined by comparing
+historical trends of mortality rates.
+
 # STUDY QUESTION and HYPOTHESIS
 
-## Questions
+## Question
 
 <!--Fill in here, the question we want to answer... e.g. What bird species is acting as WNV amplifying host in Salt Lake City?-->
 
 Between vaccinated and non-vaccinated groups, who shows a more
-significant decline in child mortality?
+significant decline in child mortality rates?
 
 ## Hypothesis
 
@@ -51,17 +62,18 @@ mortality rates compared to those who are unvaccinated.
 
 <!--Fill in prediction... e.g. If house finches are acting as important amplifying hosts, we predict that trapping locations where mosquitoes feed on house finches will also have higher rates of confirmed WNV in tested mosquito pools.-->
 
+If vaccines are effective at reducing mortality rates in infants, we
+will see a more significant decline in the mortality for those who are
+vaccinated compared to not.
+
 # METHODS
 
 <!--Fill in here, including overview of procedure and methods used for this project.
-&#10;To connect real-world-transmission data to laboratory findings, molecular tools are used. Polymerase chain reaction (PCR) is a method of DNA amplification used to determine what host species mosquitos have blood fed on by extracting the blood from the mosquito and sequencing the amplified DNA fragments. Primers are used in the amplification to make many copies of the DNA strands for better reading (Polymerase Chain Reaction (PCR), n.d.). Identifying the host correctly allows for connections to be made to determine feeding patterns and infection outcomes.
-&#10;-->
+-->
 
 ## First Analysis
 
-### Comparing Infant Mortality Rates
-
-Line Graph:
+### Comparing Infant Mortality Rates: Line Graph
 
 ``` r
 library(ggplot2)
@@ -115,7 +127,97 @@ ggplot(data_long, aes(x = Year, y = MortalityRate, color = Group)) +
 
 ## Second Analysis
 
-### Second Analysis
+### Linear Regression of Vaccinated compared to Unvaccinated
+
+``` r
+data <- read.csv("Globalinfantmortalityrate.csv")
+
+# Slope for Vaccinated
+model_vax <- lm(Vaccinated.Mortality.Rate ~ Year, data = data)
+
+# Slope for Unvaccinated
+model_unvax <- lm(Unvaccinated.Mortality.Rate ~ Year, data = data)
+
+summary(model_vax)$coefficients
+```
+
+    ##                Estimate  Std. Error   t value     Pr(>|t|)
+    ## (Intercept) 306.6466817 4.634064296  66.17230 1.365245e-49
+    ## Year         -0.1504525 0.002318128 -64.90257 3.491021e-49
+
+``` r
+summary(model_unvax)$coefficients
+```
+
+    ##                Estimate  Std. Error   t value     Pr(>|t|)
+    ## (Intercept) 237.1972670 3.461198948  68.53038 2.499673e-50
+    ## Year         -0.1149502 0.001731418 -66.39079 1.163643e-49
+
+``` r
+slope_vax <- coef(model_vax)[2]
+slope_unvax <- coef(model_unvax)[2]
+
+cat("Vaccinated slope:", slope_vax, "\n")
+```
+
+    ## Vaccinated slope: -0.1504525
+
+``` r
+cat("Unvaccinated slope:", slope_unvax, "\n")
+```
+
+    ## Unvaccinated slope: -0.1149502
+
+``` r
+#If the p-value for that term is < 0.05, the slopes are significantly different.
+#If the p-value is > 0.05, the slopes are not significantly different.
+
+# Reshape the data
+data_long <- data.frame(
+  Year = rep(data$Year, 2),
+  Mortality = c(data$Vaccinated.Mortality.Rate, data$Unvaccinated.Mortality.Rate),
+  Group = rep(c("Vaccinated", "Unvaccinated"), each = nrow(data))
+)
+model <- lm(Mortality ~ Year * Group, data = data_long)
+summary(model)
+```
+
+    ## 
+    ## Call:
+    ## lm(formula = Mortality ~ Year * Group, data = data_long)
+    ## 
+    ## Residuals:
+    ##      Min       1Q   Median       3Q      Max 
+    ## -0.45097 -0.14736 -0.04261  0.12860  0.66916 
+    ## 
+    ## Coefficients:
+    ##                        Estimate Std. Error t value Pr(>|t|)    
+    ## (Intercept)          237.197267   4.089893   58.00   <2e-16 ***
+    ## Year                  -0.114950   0.002046  -56.19   <2e-16 ***
+    ## GroupVaccinated       69.449415   5.783982   12.01   <2e-16 ***
+    ## Year:GroupVaccinated  -0.035502   0.002893  -12.27   <2e-16 ***
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    ## 
+    ## Residual standard error: 0.2151 on 98 degrees of freedom
+    ## Multiple R-squared:  0.9901, Adjusted R-squared:  0.9898 
+    ## F-statistic:  3279 on 3 and 98 DF,  p-value: < 2.2e-16
+
+``` r
+library(ggplot2)
+
+ggplot(data_long, aes(x = Year, y = Mortality, color = Group)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE, lwd = 1.2) +
+  theme_minimal() +
+  labs(title = "Comparison of Mortality Rate Trends Over Time",
+       y = "Mortality Rate",
+       x = "Year")
+```
+
+    ## `geom_smooth()` using formula = 'y ~ x'
+
+![](Final_RMarkdown_Mason_Gagner_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
 
 # DISCUSSION
 
@@ -141,3 +243,7 @@ Contribution of vaccination to improved survival and health: modelling
 October 28, 2025 from
 <https://archive.ourworldindata.org/20250909-093708/grapher/infant-mortality-vaccines.html>
 (archived on September 9, 2025).
+
+World Health Organization. (n.d.). Essential Programme on immunization.
+World Health Organization.
+<https://www.who.int/teams/immunization-vaccines-and-biologicals/essential-programme-on-immunization>
