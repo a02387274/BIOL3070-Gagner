@@ -1,7 +1,7 @@
 Mortality Rates Compared Between Vaccinated and Unvaccinated Infants
 ================
 Mason Gagner
-2025-11-13
+2025-11-21
 
 - [ABSTRACT](#abstract)
 - [BACKGROUND](#background)
@@ -27,20 +27,47 @@ Mason Gagner
 
 <!--Fill in abstract at the end after we have finished the methods, results, discussion, conclusions and know what our data "says".-->
 
+Infant mortality rate (IMR) serves as a key indicator of population
+health and long-term societal progress. This study compares historical
+IMR trends between vaccinated and unvaccinated populations from
+1974–2024 to evaluate whether vaccines significantly contribute to
+greater reductions in infant mortality. A visual comparison of mortality
+trajectories over time and a linear regression model assessing the rate
+of decline for each group were performed as project analyses. Both
+groups showed decreasing IMR across the data’s 50-year period,
+consistent with global advancements in healthcare, sanitation, and
+living standards. Regression results demonstrated that the vaccinated
+group experienced a significantly steeper decline in mortality,
+supported by an lm() model in R yielding a p-value of 2.2e-16. These
+findings indicate that vaccination is strongly associated with increased
+reductions of infant mortality and highlight the long-term
+population-level benefits of immunization programs.
+
 # BACKGROUND
 
 <!--Fill in some text here that provides background info on the WNV system, the blood meal DNA extractions, PCR, sequencing, etc. and the foundation for our question/hypothesis.
 &#10;NOTE: Examples of data you can plot for the background info at https://github.com/saarman/BIOL3070/ -->
 
+<!--Infant mortality stands as a key indicator of a nation’s overall health and development. Many factors can contribute to the health and life expectancy of people, such as hygiene driven by cultural and technological norms and advancement. Introduction of global vaccination initiatives such as the Expanded Programme on Immunization (EPI) in 1974 has been linked to reductions in preventable childhood deaths (World Health Organization). While there are many studies to confirm the efficacy of vaccines, long-term impact is determined by comparing historical trends of mortality rates.-->
+
 Infant mortality stands as a key indicator of a nation’s overall health
-and development. Many factors can contribute to the health and life
-expectancy of people, such as hygiene driven by cultural and
-technological norms and advancement. Introduction of global vaccination
-initiatives such as the Expanded Programme on Immunization (EPI) in 1974
-has been linked to reductions in preventable childhood deaths (World
-Health Organization). While there are many studies to confirm the
-efficacy of vaccines, long-term impact is determined by comparing
-historical trends of mortality rates.
+and development. Many factors contribute to early-life survival,
+including access to healthcare, hygiene practices driven by cultural and
+technological norms, and overall medical advancement. One major global
+effort to improve child survival has been the introduction of widespread
+vaccination programs. The Expanded Programme on Immunization (EPI),
+launched by the World Health Organization in 1974, aimed to reduce
+preventable childhood deaths by increasing access to vaccines worldwide
+(World Health Organization).
+
+While the effectiveness of vaccines at preventing specific diseases is
+well established, the long-term population-level impact is best
+understood by examining historical trends in infant mortality rates. IMR
+generally reflects deaths per 1,000 live births and provides a broad
+picture of overall living conditions. By comparing mortality rates for
+vaccinated and unvaccinated populations over time we can evaluate how
+strongly vaccination contributes to declines in infant deaths on a
+global scale.
 
 # STUDY QUESTION and HYPOTHESIS
 
@@ -70,6 +97,22 @@ vaccinated compared to not.
 
 <!--Fill in here, including overview of procedure and methods used for this project.
 -->
+
+Two analyses were performed to evaluate the significance of vaccination
+on IMR. The first analysis provides a visual assessment of the raw data
+for both groups across time. Trends are easily visible using the
+1974-2024 data, and the overall difference between the two groups is
+established.
+
+The second analysis uses a linear regression model to quantify the rate
+of change in mortality for each group. Separate regression models were
+fit to the vaccinated and unvaccinated data to calculate their
+respective slopes. The calculated slopes represent the year over year
+trend. Because our main question focuses on whether the decline in
+mortality is significantly different between groups, an interaction
+model was used to statistically compare the slopes. A p-value threshold
+of α = 0.05 generally offers statistical significance, where the
+experimental calculated value fit well within that threshold.
 
 ## First Analysis
 
@@ -106,7 +149,7 @@ ggplot(data_long, aes(x = Year, y = MortalityRate, color = Group)) +
     minor_breaks = data_long$Year                                     
   ) +
   
-  # Line colors for the faded/more solid colored lines
+  # Line colors for the faded/more solid colored lines: AI used to assist in formatting.
   theme_minimal(base_size = 12) +
   theme(
     panel.grid.minor = element_line(color = "gray90", size = 0.2),
@@ -245,7 +288,7 @@ equations <- equations %>%
 data_long_labeled <- data_long %>%
   left_join(equations, by = "Group")
 
-# Plot design
+# Plot design: AI was used to assist in the incorporation of the slope onto the graph. 
 ggplot(data_long_labeled, aes(x = Year, y = Mortality, color = label)) +
   geom_point(size = 2) +
   geom_smooth(method = "lm", se = FALSE, lwd = 1.2) +
@@ -269,9 +312,40 @@ ggplot(data_long_labeled, aes(x = Year, y = Mortality, color = label)) +
 
 ## Interpretation - First Analysis
 
+This representation of the data (Shattock et al. 2024) provides a clear
+visual of the long term historical trends of mortality rate. It is
+clearly visible that both groups in the study experienced a decrease in
+overall mortality rate. The decline can be attributed to the overall
+increase in living conditions and standards. Progression in hygiene and
+health are applicable to both groups, so assesing the difference between
+the changes is necessary to understanding the significance, if any, of
+the impact of vaccines.
+
 ## Interpretation - Second Analysis
 
+Using the slopes of the lines allows for a statistical analysis to be
+performed. The unvaccinated line had a slope of -0.11 where vaccinated
+was -0.15. While improvement for both is good, running a t-test for two
+slopes allows for statistical significance to be determined. Using the
+lm() function in R, the two regression lines were compared and a p-value
+of 2.2e-16 was generated. With the standard scientifically accepted
+p-value of significance being p \< 0.05, the data suggests that there is
+a rather significant difference in the slopes from the two groups.
+
 # CONCLUSION
+
+The analyses done in this study provided clear evidence that there is a
+statistical significance to the rate of decline of infant mortality
+since 1974 for vaccinated and unvaccinated groups. While both showed
+decrease from confounding factors of technological and health
+advancements, the vaccinated group showed a statistically significantly
+steeper decline. Random variation can be excused due to the calculated
+p-value of 2.2e-16.
+
+These findings support the original study hypothesis of vaccines
+contributing in a significant manner to the decline in infant mortality
+rates. Long-term population-level benefits of immunization programs is
+displayed from this study and reinforces the importance of vaccines.
 
 # REFERENCES
 
