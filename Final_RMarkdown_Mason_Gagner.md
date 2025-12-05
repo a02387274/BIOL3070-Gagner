@@ -1,7 +1,7 @@
 Mortality Rates Compared Between Vaccinated and Unvaccinated Infants
 ================
 Mason Gagner
-2025-11-21
+2025-12-05
 
 - [ABSTRACT](#abstract)
 - [BACKGROUND](#background)
@@ -16,6 +16,7 @@ Mason Gagner
   - [Second Analysis](#second-analysis)
     - [Linear Regression of Vaccinated compared to
       Unvaccinated](#linear-regression-of-vaccinated-compared-to-unvaccinated)
+  - [Results](#results)
 - [DISCUSSION](#discussion)
   - [Interpretation - First Analysis](#interpretation---first-analysis)
   - [Interpretation - Second
@@ -53,12 +54,12 @@ population-level benefits of immunization programs.
 Infant mortality stands as a key indicator of a nation’s overall health
 and development. Many factors contribute to early-life survival,
 including access to healthcare, hygiene practices driven by cultural and
-technological norms, and overall medical advancement. One major global
-effort to improve child survival has been the introduction of widespread
-vaccination programs. The Expanded Programme on Immunization (EPI),
-launched by the World Health Organization in 1974, aimed to reduce
-preventable childhood deaths by increasing access to vaccines worldwide
-(World Health Organization).
+technological norms, and overall medical advancement (G.L. Drevenstedt
+et al. 2008). One major global effort to improve child survival has been
+the introduction of widespread vaccination programs. The Expanded
+Programme on Immunization (EPI), launched by the World Health
+Organization in 1974, aimed to reduce preventable childhood deaths by
+increasing access to vaccines worldwide (World Health Organization).
 
 While the effectiveness of vaccines at preventing specific diseases is
 well established, the long-term population-level impact is best
@@ -98,7 +99,11 @@ vaccinated compared to not.
 <!--Fill in here, including overview of procedure and methods used for this project.
 -->
 
-Two analyses were performed to evaluate the significance of vaccination
+Original data came from WHO data bases containing information from major
+regions such as African, Eastern Mediterranean, European, Americas,
+South-East Asia, and the Western Pacific. This is a correlation study so
+the differences between the groups was compared. From the reported data,
+two analyses were performed to evaluate the significance of vaccination
 on IMR. The first analysis provides a visual assessment of the raw data
 for both groups across time. Trends are easily visible using the
 1974-2024 data, and the overall difference between the two groups is
@@ -308,7 +313,32 @@ ggplot(data_long_labeled, aes(x = Year, y = Mortality, color = label)) +
 
 ![](Final_RMarkdown_Mason_Gagner_files/figure-gfm/mortality_plot-1.png)<!-- -->
 
+## Results
+
+Very strong statistical difference detected between the two groups:
+
+Vaccinated Slope: -0.150
+
+Unvaccinated Slope: -0.115
+
+P-Value: 2.2e-16
+
 # DISCUSSION
+
+Data collected and analysed in this study supports the original study
+hypothesis of infants that are vaccinated will show a more significant
+decline in mortality rates compared to those who are unvaccinated.
+Graphical representation and linear regression analyses showed strong
+statistical difference between the two groups. Findings of this study
+align with the overall purpose of vaccines which is to protect against
+future infections, minimizing the risk of fatal sicknesses.
+
+Limitations of this study can include but are not limited to lack of
+general demographics where this data is broken down regionally, living
+conditions, cost of access to healthcare, types of vaccines, and what
+specifically defines vaccinated or unvaccinated whether it be fully
+vaccinated or partially. More specific breakdowns of gathered data would
+be more representative.
 
 ## Interpretation - First Analysis
 
@@ -334,20 +364,21 @@ a rather significant difference in the slopes from the two groups.
 
 # CONCLUSION
 
-The analyses done in this study provided clear evidence that there is a
-statistical significance to the rate of decline of infant mortality
-since 1974 for vaccinated and unvaccinated groups. While both showed
-decrease from confounding factors of technological and health
-advancements, the vaccinated group showed a statistically significantly
-steeper decline. Random variation can be excused due to the calculated
-p-value of 2.2e-16.
-
-These findings support the original study hypothesis of vaccines
-contributing in a significant manner to the decline in infant mortality
-rates. Long-term population-level benefits of immunization programs is
-displayed from this study and reinforces the importance of vaccines.
+The data from this study demonstrates that there is a statistical
+significance in Infant Mortality Rates between vaccinated and
+unvaccinated groups, with those who are vaccinated experiencing a much
+lower rate. Visual representation as well as linear regression analyses
+indicate the significance of vaccines in preventing infant deaths.
+Results of the study justify an important look at vaccines and how they
+can be implemented on a broader scale being made more available for
+those who do not have them.
 
 # REFERENCES
+
+G.L. Drevenstedt, E.M. Crimmins, S. Vasunilashorn, & C.E. Finch, The
+rise and fall of excess male infant mortality, Proc. Natl. Acad. Sci.
+U.S.A. 105 (13) 5016-5021, <https://doi.org/10.1073/pnas.0800221105>
+(2008).
 
 OpenAI. (2025). ChatGPT (Oct 2025 version) \[Large language model\].
 OpenAI. <https://chat.openai.com/> (Used for general structuring and
